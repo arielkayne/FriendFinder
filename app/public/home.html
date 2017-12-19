@@ -1,7 +1,7 @@
-Landing page...
+<!-- Landing page...
 
 button to add yourself
-button to see who's there
+button to see who's there -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,13 +29,13 @@ button to see who's there
 
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title"><strong>Friend Search</strong></h3>
+            <h3 class="panel-title"><strong>Existing Friend Search</strong></h3>
           </div>
           <div class="panel-body">
             <input type="text" id="character-search" class="form-control">
             <br>
             <div class="text-right">
-              <button type="submit" class="btn btn-primary btn-md" id="search-btn"><span class="glyphicon glyphicon-search"></span> Get ready to rumble.</button>
+              <button type="submit" class="btn btn-primary btn-md" id="search-btn"><span class="glyphicon glyphicon-search"></span> See if you're a match.</button>
 
             </div>
           </div>
@@ -43,15 +43,13 @@ button to see who's there
 
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title"><strong>Character Statistics</strong></h3>
+            <h3 class="panel-title"><strong>There are so many connections here. Hope you find one.</strong></h3>
           </div>
           <div class="panel-body">
             <div class="well">
-              <h2 id="name">Yoda</h2>
+              <h2 id="available">Available Members:</h2>
               <div id="stats">
-                <h3><strong>Role:</strong> <span id="role">Jedi Master</span></h3>
-                <h3><strong>Age:</strong> <span id="age">900</span></h3>
-                <h3><strong>Force Points:</strong> <span id="force-points">2000</span></h3>
+                <h3><span id="force-points">?Placeholder?</span></h3>
               </div>
             </div>
           </div>
@@ -62,21 +60,19 @@ button to see who's there
 
   <script type="text/javascript">
     $("#search-btn").on("click", function() {
-      var searchedCharacter = $("#character-search").val().trim();
+      var searchedFriend = $("#character-search").val().trim();
 
-      searchedCharacter = searchedCharacter.replace(/\s+/g, "").toLowerCase();
+      searchedFriend = searchedFriend.replace(/\s+/g, "").toLowerCase();
 
-      $.get("/api/" + searchedCharacter, function(data) {
+      $.get("/api/" + searchedFriend, function(data) {
         console.log(data);
         if (data) {
-          $("#stats").show();
           $("#name").text(data.name);
-          $("#role").text(data.role);
-          $("#age").text(data.age);
-          $("#force-points").text(data.forcePoints);
+          $("#headshot").text(data.headshot);
+          $("#match").text(data.match);
         }
         else {
-          $("#name").text("The force is not strong with this one. Your character was not found.");
+          $("#name").text("Whelp. You have no friends");
           $("#stats").hide();
         }
       });
